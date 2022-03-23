@@ -1,0 +1,150 @@
+body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box;}
+
+/* Button used to open the chat form - fixed at the bottom of the page */
+.open-button {
+    background-color: #37538d;
+    color: white;
+    padding: 12px 12px;
+    border: none;
+    cursor: pointer;
+    opacity: 0.8;
+    position: fixed;
+    bottom: 24px;
+    right: 28px;
+    border-radius: 60px;
+}
+
+/* The popup chat - hidden by default */
+.chat-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 1px solid #f1f1f1;
+    z-index: 9;
+    width: 330px;
+    margin-bottom: 30px;
+}
+
+.register-popup {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    right: 15px;
+    border: 1px solid #f1f1f1;
+    z-index: 9;
+}
+
+/* Add styles to the form container */
+.form-container {
+    padding: 10px;
+    background-color: white;
+}
+
+/* Full-width textarea */
+.form-container textarea {
+    width: 100%;
+    padding: 15px;
+    /*margin: 5px 0 22px 0;*/
+    border: none;
+    background: #f1f1f1;
+    resize: none;
+    max-height: 60px;
+    height: 60px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+/* When the textarea gets focus, do something */
+.form-container textarea:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+    position: absolute;
+    right: 12px;
+    color: #000;
+    cursor: pointer;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+    opacity: 1;
+}
+i.fas.fa-comment {font-size: 40px;}
+div#myForm {
+    margin-bottom: 30px;
+    margin-right: 10px;
+    width: 331px;
+}
+.area-register {
+    margin-bottom: 20px;
+}
+label.label-form {
+    margin-bottom: 0;
+    margin-top: 10px;
+}
+
+input.input-form {
+    width: 100%;
+}
+span.error {
+    font-size: 13px;
+    color: #FF0040;
+    display: none;
+}
+.error.show{
+    display: block;
+}
+a.hidden {
+    position: absolute;
+    right: 35px;
+    color: #000;
+    cursor: pointer;
+}
+div#chat_content {
+    width: 100%;
+    height: 350px;
+    border: 1px solid rgba(27,27,27,.125);
+    margin-bottom: 15px;
+    overflow-y: auto;
+}
+.note-parent .note-child {
+    margin: 1rem 1rem 0 auto;
+    border-radius: 1.125rem 1.125rem 0 1.125rem;
+    background: #333;
+    color: white;
+    word-break: break-word;
+}
+.note-parent .message {
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    min-height: 2.25rem;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 66%;
+    box-shadow: 0 0 2rem rgb(0 0 0 / 8%), 0rem 1rem 1rem -1rem rgb(0 0 0 / 10%);
+}
+.area-input-chat {
+    display: flex;
+}
+.time-parent {
+    text-align: right;
+    color: #A4A4A4;
+    font-size: 13px;
+    padding-right: 20px;
+}
+a.button-send-chat {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: #f1f1f1;
+    font-size: 20px;
+}
+
+i#icon-send {
+    padding: 20px;
+}

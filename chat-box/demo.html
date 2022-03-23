@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="demo.css">
+</head>
+
+
+<body>
+<button id="open-button" class="open-button" onclick="openForm()"><i class="fas fa-comment"></i></button>
+
+<div class="register-popup" id="myForm">
+    <form action="/" class="form-container" style="position: relative">
+        <a class="cancel" onclick="closeForm()"><i class="fas fa-times"></i></a>
+        <a class="hidden" onclick="hiddenRegister()"><i class="fas fa-minus"></i></a>
+        <h2>Bắt đầu chat</h2>
+        <p>Vui lòng nhập thông tin tại đây</p>
+        <div class="area-register">
+            <label for="name" class="label-form">Họ tên</label>
+            <input placeholder="Họ tên" name="name" class="input-form" id="name">
+            <span class="error" id="error-name">Họ tên không được để trống!</span>
+            <label for="phone" class="label-form">Số điện thoại</label>
+            <input placeholder="Số điện thoại" name="phone" class="input-form" id="phone">
+            <span class="error" id="error-phone">Số điện thoại không được để trống!</span>
+        </div>
+
+        <button type="button" class="btn btn-secondary" onclick="btnRegister()" id="button-register">Bắt đầu</button>
+
+    </form>
+</div>
+
+<div class="chat-popup" id="chatForm">
+    <form action="/" class="form-container" style="position: relative">
+        <a class="cancel" onclick="closeForm()"><i class="fas fa-times"></i></a>
+        <a class="hidden" onclick="hiddenForm()"><i class="fas fa-minus"></i></a>
+        <h5>Xin chào <span id="name-title"></span></h5>
+        <div class="chat-content" id="chat_content">
+
+        </div>
+        <div class="area-input-chat">
+            <textarea placeholder="Nhập nội dung..." name="chat" id="chat"></textarea>
+            <a type="button" class="button-send-chat" onclick="sendChat()"><i class="fas fa-paper-plane" id="icon-send"></i></a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+    function openForm() {
+        var name = $( "#name" ).val();
+        var phone = $("#phone").val();
+        if (name == '' || phone == ''){
+            document.getElementById("myForm").style.display = "block";
+        } else {
+            document.getElementById("chatForm").style.display = "block";
+
+        }
+        document.getElementById("open-button").style.display = "none";
+
+    }
+
+    $("#myForm").keyup(function(event) {
+        if (event.keyCode === 13) {
+            $("#button-register").click();
+        }
+    });
+    function closeForm() {
+        document.getElementById("myForm").style.display = "none";
+        document.getElementById("chatForm").style.display = "none";
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        $('.note-parent').remove();
+        $('.time-parent').remove();
+        document.getElementById("open-button").style.display = "block";
+    }
+
+    function hiddenRegister(){
+        document.getElementById("myForm").style.display = "none";
+        document.getElementById("chatForm").style.display = "none";
+        document.getElementById("name").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("open-button").style.display = "block";
+    }
+
+    function hiddenForm(){
+        document.getElementById("myForm").style.display = "none";
+        document.getElementById("chatForm").style.display = "none";
+        document.getElementById("open-button").style.display = "block";
+    }
+    function btnRegister(){
+        var name = $( "#name" ).val();
+        var phone = $("#phone").val();
+        if (name != '' && phone != ''){
+            document.getElementById("myForm").style.display = "none";
+            document.getElementById("chatForm").style.display = "block";
+            $("#name-title").text(name);
+        } else if (name == '' && phone != ''){
+            document.getElementById("error-name").style.display = "block";
+            setTimeout("document.getElementById('error-name').style.display = 'none'", 3000);
+        } else if (phone == '' && name != ''){
+            document.getElementById("error-phone").style.display = "block";
+            setTimeout("document.getElementById('error-phone').style.display = 'none'", 3000);
+        }
+        else {
+            $(".error").addClass('show');
+            setTimeout("$('.error').removeClass('show')", 3000);
+        }
+    }
+    let chat = document.getElementById('chat');
+
+    function sendChat() {
+        const d = new Date();
+        let hour = d.getHours();
+        let minutes = d.getMinutes()
+
+        if (chat.value && chat.value.trim() !== ''){
+            let parentChat = document.createElement('div');
+            let childChat = document.createElement('div');
+            let spanChat = document.createElement('span');
+            let parentTime = document.createElement('div');
+            let childTime = document.createElement('div');
+            let spanTime = document.createElement('span');
+
+            parentChat.setAttribute('class', 'note-parent');
+            childChat.setAttribute('class', 'message note-child');
+            spanChat.textContent = chat.value.trim();
+            parentTime.setAttribute('class', 'time-parent');
+            childTime.setAttribute('class', 'time-child');
+            spanTime.textContent = hour + `:` + minutes;
+
+            let chatContent = document.getElementById('chat_content');
+            chatContent.appendChild(parentChat);
+            parentChat.appendChild(childChat);
+            childChat.appendChild(spanChat);
+
+            chatContent.appendChild(parentTime);
+            parentTime.appendChild(childTime);
+            childTime.appendChild(spanTime);
+
+
+            document.getElementById("chat").value = "";
+
+            let scrollMess = document.getElementById('chat_content');
+            scrollMess.scrollTop = scrollMess.scrollHeight;
+        }
+    }
+    chat.addEventListener('keypress', function (e){
+        e.stopPropagation();
+        if(e.keyCode == 13 && chat.value.trim() !== '' && !e.shiftKey)
+        {
+            e.preventDefault();
+            // alert(chat.value.length);
+            document.getElementById('icon-send').click();
+        }
+        return true;
+    });
+
+</script>
